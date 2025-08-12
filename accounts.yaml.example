@@ -1,0 +1,52 @@
+# Email Accounts Configuration Example
+# Rename this file to accounts.yaml and fill with your real data
+
+accounts:
+  # Sales Department
+  - label: "Sales Manager"
+    email: "sales@yourdomain.com"
+    password: "your_email_password"
+    imap_server: "imap.privateemail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false  # Namecheap usually doesn't support IDLE
+    
+  - label: "Sales Team"
+    email: "team@yourdomain.com"
+    password: "your_email_password"
+    imap_server: "imap.privateemail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  # Support Department
+  - label: "Support"
+    email: "support@yourdomain.com"
+    password: "your_email_password"
+    imap_server: "imap.privateemail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  - label: "Help Desk"
+    email: "help@yourdomain.com"
+    password: "your_email_password"
+    imap_server: "imap.privateemail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  # Management
+  - label: "CEO Office"
+    email: "ceo@yourdomain.com"
+    password: "your_email_password"
+    imap_server: "imap.privateemail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  # Add more accounts as needed (up to 20 total)
+  # Just copy the pattern above and change:
+  # - label: "Department Name"
+  # - email: "email@yourdomain.com" 
+  # - password: "actual_password"

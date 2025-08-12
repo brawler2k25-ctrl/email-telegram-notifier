@@ -1,0 +1,41 @@
+version: '3.8'
+
+# Оптимизированная версия для VPS с 1GB RAM
+services:
+  email-notifier:
+    build: .
+    container_name: email-telegram-notifier
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./accounts.yaml:/app/accounts.yaml:ro
+    
+    # Ограничения для 1GB VPS
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'  # Оставляем 20% для системы
+          memory: 700M  # Оставляем 300MB для ОС
+        reservations:
+          cpus: '0.3'
+          memory: 400M
+    
+    # Минимальное логирование для экономии места
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+    
+    networks:
+      - notifier-network
+
+networks:
+  notifier-network:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local

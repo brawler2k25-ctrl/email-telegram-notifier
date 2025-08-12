@@ -1,0 +1,64 @@
+# Конфигурация с приоритетами для VPS с ограниченными ресурсами
+# Критичные почты проверяются через IDLE, остальные через polling
+
+accounts:
+  # ПРИОРИТЕТ 1: Критичные (IDLE - мгновенные уведомления)
+  - label: "CEO Office"
+    email: "ceo@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: true  # Мгновенные уведомления
+    
+  - label: "Support Urgent"
+    email: "urgent@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: true
+    
+  - label: "Sales Main"
+    email: "sales@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: true
+
+  # ПРИОРИТЕТ 2: Важные (проверка каждые 2 минуты)
+  - label: "CFO Office"
+    email: "cfo@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false  # Polling режим
+    
+  - label: "CTO Office"
+    email: "cto@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  - label: "Support Level 2"
+    email: "support@company.com"
+    password: "app_password"
+    imap_server: "outlook.office365.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+    
+  - label: "HR General"
+    email: "hr@company.com"
+    password: "app_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false
+
+  # ПРИОРИТЕТ 3: Стандартные (проверка каждые 3-5 минут)
+  # Добавьте остальные 13 почт здесь с use_idle: false

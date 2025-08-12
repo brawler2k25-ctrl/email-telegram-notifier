@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  email-notifier:
+    build: .
+    container_name: email-telegram-notifier
+    restart: unless-stopped
+    
+    # Environment variables from .env file
+    env_file:
+      - .env
+    
+    # Volume for persistent database
+    volumes:
+      - ./data:/app/data
+      - ./accounts.yaml:/app/accounts.yaml:ro
+      - ./logs:/app/logs
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Network configuration
+    networks:
+      - notifier-network
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  notifier-network:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local

@@ -1,0 +1,46 @@
+version: '3.8'
+
+# Оптимальная конфигурация для VPS с 2GB RAM
+services:
+  email-notifier:
+    build: .
+    container_name: email-telegram-notifier
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./accounts.yaml:/app/accounts.yaml:ro
+      - ./logs:/app/logs
+    
+    # Комфортные лимиты для 2GB VPS
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'      # Используем 1.5 из 2 ядер
+          memory: 1536M     # 1.5GB для приложения
+        reservations:
+          cpus: '0.5'
+          memory: 768M      # Минимум 768MB
+    
+    # Нормальное логирование
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+    
+    # Проверка здоровья
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    networks:
+      - notifier-network
+
+networks:
+  notifier-network:
+    driver: bridge

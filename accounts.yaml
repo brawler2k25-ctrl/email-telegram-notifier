@@ -1,0 +1,26 @@
+# Email Accounts Configuration
+# Each account should have a unique label for identification
+accounts:
+  - label: "Main Office"
+    email: "office@company.com"
+    password: "your_password"
+    imap_server: "imap.gmail.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: true  # Enable IMAP IDLE if supported
+    
+  - label: "Support"
+    email: "support@company.com"
+    password: "your_password"
+    imap_server: "imap.office365.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: true
+    
+  - label: "Sales"
+    email: "sales@company.com"
+    password: "your_password"
+    imap_server: "mail.company.com"
+    imap_port: 993
+    use_ssl: true
+    use_idle: false  # Fallback to polling if IDLE not supported
